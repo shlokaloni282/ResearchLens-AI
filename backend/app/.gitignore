@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets
+.env
+.env.*
+
+# Local documents and indexes
+data/*
+!data/.gitkeep
+*.faiss
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Frontend
+node_modules/
+dist/
+
+# Editor
+.vscode/
