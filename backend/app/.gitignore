@@ -1,17 +1,18 @@
-# Python
-__pycache__/
-*.py[cod]
+# Python environments
 .venv/
 venv/
 
-# Secrets
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment variables
 .env
 .env.*
 
-# Local documents and indexes
-data/*
-!data/.gitkeep
-*.faiss
+# Uploaded papers and local indexes
+data/uploads/
+data/indexes/
 
 # Testing
 .pytest_cache/
@@ -21,6 +22,3 @@ htmlcov/
 # Frontend
 node_modules/
 dist/
-
-# Editor
-.vscode/
