@@ -3,6 +3,7 @@ from uuid import uuid4
 
 from fastapi import APIRouter, UploadFile, File, HTTPException, Query
 from backend.app.services.chunking import chunk_pages
+from backend.app.services.retrieval import get_default_vector_index
 
 
 router = APIRouter(
@@ -85,6 +86,9 @@ async def upload_paper(
             chunk_size=chunk_size,
             overlap=overlap,
         )
+
+        # Index chunks into default in-memory vector store for retrieval & QA
+        get_default_vector_index().add_chunks(chunks)
 
         return {
             "filename": file.filename,

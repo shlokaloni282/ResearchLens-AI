@@ -1,0 +1,518 @@
+{
+  "timestamp": "2026-11-16T20:05:32.920579",
+  "pdf": "rng_paper.pdf",
+  "chunk_size": 500,
+  "overlap": 50,
+  "results": {
+    "fixed": {
+      "total_queries": 8,
+      "hit_rate_at_1": 87.5,
+      "hit_rate_at_3": 87.5,
+      "hit_rate_at_5": 87.5,
+      "mrr": 0.875,
+      "query_results": [
+        {
+          "id": "rng_q01",
+          "question": "What is the power dissipation and maximum clock rate of the proposed RNG design?",
+          "expected_page": 3,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            3,
+            1,
+            1,
+            4,
+            2
+          ],
+          "top_scores": [
+            0.6428999900817871,
+            0.6008999943733215,
+            0.5867000222206116,
+            0.5676000118255615,
+            0.5541999936103821
+          ]
+        },
+        {
+          "id": "rng_q02",
+          "question": "What is the entire chip area and core area of the proposed 2-layer RNG?",
+          "expected_page": 3,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            3,
+            4,
+            2,
+            2,
+            4
+          ],
+          "top_scores": [
+            0.696399986743927,
+            0.6148999929428101,
+            0.5740000009536743,
+            0.5662000179290771,
+            0.557699978351593
+          ]
+        },
+        {
+          "id": "rng_q03",
+          "question": "What semiconductor process technology was used to realize the 2-layer RNG?",
+          "expected_page": 3,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            3,
+            4,
+            2,
+            4,
+            1
+          ],
+          "top_scores": [
+            0.6154999732971191,
+            0.5683000087738037,
+            0.5597000122070312,
+            0.5514000058174133,
+            0.550000011920929
+          ]
+        },
+        {
+          "id": "rng_q04",
+          "question": "What are the passing criteria for the Monobit Test in the statistical evaluation?",
+          "expected_page": 4,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            4,
+            3,
+            2,
+            1,
+            1
+          ],
+          "top_scores": [
+            0.43860000371932983,
+            0.2962000072002411,
+            0.18860000371932983,
+            0.18440000712871552,
+            0.164000004529953
+          ]
+        },
+        {
+          "id": "rng_q05",
+          "question": "How is a long run defined in the Long Runs Test for randomness validation?",
+          "expected_page": 4,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            4,
+            3,
+            1,
+            1,
+            3
+          ],
+          "top_scores": [
+            0.45410001277923584,
+            0.44690001010894775,
+            0.3474999964237213,
+            0.2694999873638153,
+            0.2653000056743622
+          ]
+        },
+        {
+          "id": "rng_q06",
+          "question": "What institution and corresponding author email are listed for the paper?",
+          "expected_page": 1,
+          "first_hit_rank": null,
+          "top_retrieved_pages": [
+            4,
+            1,
+            3,
+            1,
+            1
+          ],
+          "top_scores": [
+            0.2475000023841858,
+            0.09920000284910202,
+            0.09910000115633011,
+            0.09459999948740005,
+            0.06710000336170197
+          ]
+        },
+        {
+          "id": "rng_q07",
+          "question": "Which statistical testing standard is used for validating the randomness of the generator?",
+          "expected_page": 3,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            3,
+            1,
+            1,
+            1,
+            1
+          ],
+          "top_scores": [
+            0.6488000154495239,
+            0.42500001192092896,
+            0.4099000096321106,
+            0.4058000147342682,
+            0.3905999958515167
+          ]
+        },
+        {
+          "id": "rng_q08",
+          "question": "What is the phenomenon called when ring oscillators in an RO-based RNG become dependent on each other?",
+          "expected_page": 2,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            2,
+            1,
+            1,
+            1,
+            3
+          ],
+          "top_scores": [
+            0.685699999332428,
+            0.6583999991416931,
+            0.5978000164031982,
+            0.474700003862381,
+            0.4643999934196472
+          ]
+        }
+      ],
+      "chunks_indexed": 27
+    },
+    "recursive": {
+      "total_queries": 8,
+      "hit_rate_at_1": 50.0,
+      "hit_rate_at_3": 50.0,
+      "hit_rate_at_5": 75.0,
+      "mrr": 0.5563,
+      "query_results": [
+        {
+          "id": "rng_q01",
+          "question": "What is the power dissipation and maximum clock rate of the proposed RNG design?",
+          "expected_page": 3,
+          "first_hit_rank": null,
+          "top_retrieved_pages": [
+            4,
+            1,
+            2,
+            1,
+            1
+          ],
+          "top_scores": [
+            0.6172999739646912,
+            0.614300012588501,
+            0.5579000115394592,
+            0.5392000079154968,
+            0.5375999808311462
+          ]
+        },
+        {
+          "id": "rng_q02",
+          "question": "What is the entire chip area and core area of the proposed 2-layer RNG?",
+          "expected_page": 3,
+          "first_hit_rank": 5,
+          "top_retrieved_pages": [
+            4,
+            1,
+            2,
+            4,
+            3
+          ],
+          "top_scores": [
+            0.6194999814033508,
+            0.5690000057220459,
+            0.5564000010490417,
+            0.5077999830245972,
+            0.5004000067710876
+          ]
+        },
+        {
+          "id": "rng_q03",
+          "question": "What semiconductor process technology was used to realize the 2-layer RNG?",
+          "expected_page": 3,
+          "first_hit_rank": 4,
+          "top_retrieved_pages": [
+            4,
+            1,
+            2,
+            3,
+            4
+          ],
+          "top_scores": [
+            0.5834000110626221,
+            0.5654000043869019,
+            0.5403000116348267,
+            0.5181999802589417,
+            0.5162000060081482
+          ]
+        },
+        {
+          "id": "rng_q04",
+          "question": "What are the passing criteria for the Monobit Test in the statistical evaluation?",
+          "expected_page": 4,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            4,
+            3,
+            4,
+            2,
+            1
+          ],
+          "top_scores": [
+            0.49549999833106995,
+            0.325300008058548,
+            0.21410000324249268,
+            0.2003999948501587,
+            0.17589999735355377
+          ]
+        },
+        {
+          "id": "rng_q05",
+          "question": "How is a long run defined in the Long Runs Test for randomness validation?",
+          "expected_page": 4,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            4,
+            3,
+            1,
+            1,
+            3
+          ],
+          "top_scores": [
+            0.4896000027656555,
+            0.3889000117778778,
+            0.3255999982357025,
+            0.322299987077713,
+            0.3084999918937683
+          ]
+        },
+        {
+          "id": "rng_q06",
+          "question": "What institution and corresponding author email are listed for the paper?",
+          "expected_page": 1,
+          "first_hit_rank": null,
+          "top_retrieved_pages": [
+            1,
+            1,
+            3,
+            3,
+            2
+          ],
+          "top_scores": [
+            0.17430000007152557,
+            0.13089999556541443,
+            0.09560000151395798,
+            0.0925000011920929,
+            0.08410000056028366
+          ]
+        },
+        {
+          "id": "rng_q07",
+          "question": "Which statistical testing standard is used for validating the randomness of the generator?",
+          "expected_page": 3,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            3,
+            1,
+            1,
+            1,
+            1
+          ],
+          "top_scores": [
+            0.6233999729156494,
+            0.43880000710487366,
+            0.421099990606308,
+            0.41620001196861267,
+            0.3831000030040741
+          ]
+        },
+        {
+          "id": "rng_q08",
+          "question": "What is the phenomenon called when ring oscillators in an RO-based RNG become dependent on each other?",
+          "expected_page": 2,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "top_scores": [
+            0.6879000067710876,
+            0.6164000034332275,
+            0.5861999988555908,
+            0.5236999988555908,
+            0.5209000110626221
+          ]
+        }
+      ],
+      "chunks_indexed": 26
+    },
+    "semantic": {
+      "total_queries": 8,
+      "hit_rate_at_1": 37.5,
+      "hit_rate_at_3": 62.5,
+      "hit_rate_at_5": 62.5,
+      "mrr": 0.4792,
+      "query_results": [
+        {
+          "id": "rng_q01",
+          "question": "What is the power dissipation and maximum clock rate of the proposed RNG design?",
+          "expected_page": 3,
+          "first_hit_rank": null,
+          "top_retrieved_pages": [
+            4,
+            3,
+            1,
+            1,
+            2
+          ],
+          "top_scores": [
+            0.6136999726295471,
+            0.6128000020980835,
+            0.6115999817848206,
+            0.6100999712944031,
+            0.5691999793052673
+          ]
+        },
+        {
+          "id": "rng_q02",
+          "question": "What is the entire chip area and core area of the proposed 2-layer RNG?",
+          "expected_page": 3,
+          "first_hit_rank": null,
+          "top_retrieved_pages": [
+            1,
+            2,
+            3,
+            4,
+            2
+          ],
+          "top_scores": [
+            0.6315000057220459,
+            0.6097999811172485,
+            0.6080999970436096,
+            0.5806999802589417,
+            0.5623999834060669
+          ]
+        },
+        {
+          "id": "rng_q03",
+          "question": "What semiconductor process technology was used to realize the 2-layer RNG?",
+          "expected_page": 3,
+          "first_hit_rank": 3,
+          "top_retrieved_pages": [
+            1,
+            2,
+            3,
+            2,
+            2
+          ],
+          "top_scores": [
+            0.6047000288963318,
+            0.5641999840736389,
+            0.5605999827384949,
+            0.5519000291824341,
+            0.5403000116348267
+          ]
+        },
+        {
+          "id": "rng_q04",
+          "question": "What are the passing criteria for the Monobit Test in the statistical evaluation?",
+          "expected_page": 4,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            4,
+            4,
+            3,
+            1,
+            1
+          ],
+          "top_scores": [
+            0.4657000005245209,
+            0.44209998846054077,
+            0.34119999408721924,
+            0.2856999933719635,
+            0.27059999108314514
+          ]
+        },
+        {
+          "id": "rng_q05",
+          "question": "How is a long run defined in the Long Runs Test for randomness validation?",
+          "expected_page": 4,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            4,
+            4,
+            1,
+            3,
+            1
+          ],
+          "top_scores": [
+            0.6269999742507935,
+            0.5546000003814697,
+            0.4440000057220459,
+            0.3935999870300293,
+            0.38510000705718994
+          ]
+        },
+        {
+          "id": "rng_q06",
+          "question": "What institution and corresponding author email are listed for the paper?",
+          "expected_page": 1,
+          "first_hit_rank": null,
+          "top_retrieved_pages": [
+            1,
+            4,
+            3,
+            1,
+            4
+          ],
+          "top_scores": [
+            0.24160000681877136,
+            0.17910000681877136,
+            0.1662999987602234,
+            0.13169999420642853,
+            0.11940000206232071
+          ]
+        },
+        {
+          "id": "rng_q07",
+          "question": "Which statistical testing standard is used for validating the randomness of the generator?",
+          "expected_page": 3,
+          "first_hit_rank": 1,
+          "top_retrieved_pages": [
+            3,
+            1,
+            1,
+            1,
+            1
+          ],
+          "top_scores": [
+            0.6711000204086304,
+            0.5522000193595886,
+            0.4099999964237213,
+            0.40540000796318054,
+            0.3982999920845032
+          ]
+        },
+        {
+          "id": "rng_q08",
+          "question": "What is the phenomenon called when ring oscillators in an RO-based RNG become dependent on each other?",
+          "expected_page": 2,
+          "first_hit_rank": 2,
+          "top_retrieved_pages": [
+            1,
+            2,
+            1,
+            1,
+            1
+          ],
+          "top_scores": [
+            0.6718999743461609,
+            0.6692000031471252,
+            0.5812000036239624,
+            0.5802000164985657,
+            0.546999990940094
+          ]
+        }
+      ],
+      "chunks_indexed": 55
+    }
+  }
+}

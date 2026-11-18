@@ -1,0 +1,92 @@
+[
+  {
+    "id": "rng_q01",
+    "paper_filename": "rng_paper.pdf",
+    "question": "What is the power dissipation and maximum clock rate of the proposed RNG design?",
+    "expected_answer": "The power dissipation is 23.4 mW at a maximal clock rate of 100 MHz.",
+    "expected_page": 3,
+    "key_facts": ["23.4 mW", "100 MHz", "power dissipation"],
+    "question_type": "factoid"
+  },
+  {
+    "id": "rng_q02",
+    "paper_filename": "rng_paper.pdf",
+    "question": "What is the entire chip area and core area of the proposed 2-layer RNG?",
+    "expected_answer": "The entire chip area is 116x84 µm2, and the core area is 37x37 µm2.",
+    "expected_page": 3,
+    "key_facts": ["116x84", "37x37", "chip area"],
+    "question_type": "factoid"
+  },
+  {
+    "id": "rng_q03",
+    "paper_filename": "rng_paper.pdf",
+    "question": "What semiconductor process technology was used to realize the 2-layer RNG?",
+    "expected_answer": "The design was realized using a typical 40-nm CMOS process.",
+    "expected_page": 3,
+    "key_facts": ["40-nm CMOS process", "n=8"],
+    "question_type": "factoid"
+  },
+  {
+    "id": "rng_q04",
+    "paper_filename": "rng_paper.pdf",
+    "question": "What are the passing criteria for the Monobit Test in the statistical evaluation?",
+    "expected_answer": "On a 20,000 bit stream, the Monobit Test is passed if 9,654 < X < 10,346, where X is the count of ones.",
+    "expected_page": 4,
+    "key_facts": ["Monobit Test", "20,000 bit stream", "9,654 < X < 10,346"],
+    "question_type": "factoid"
+  },
+  {
+    "id": "rng_q05",
+    "paper_filename": "rng_paper.pdf",
+    "question": "How is a long run defined in the Long Runs Test for randomness validation?",
+    "expected_answer": "A long run is defined to be a run of length 34 or more (of either zeros or ones) on a sample of 20,000 bits.",
+    "expected_page": 4,
+    "key_facts": ["Long Runs Test", "run of length 34", "20,000 bits"],
+    "question_type": "factoid"
+  },
+  {
+    "id": "rng_q06",
+    "paper_filename": "rng_paper.pdf",
+    "question": "What institution and corresponding author email are listed for the paper?",
+    "expected_answer": "National Sun Yat-Sen University, with corresponding author Chua-Chin Wang (ccwang@ee.nsysu.edu.tw).",
+    "expected_page": 1,
+    "key_facts": ["National Sun Yat-Sen University", "ccwang@ee.nsysu.edu.tw", "Chua-Chin Wang"],
+    "question_type": "factoid"
+  },
+  {
+    "id": "rng_q07",
+    "paper_filename": "rng_paper.pdf",
+    "question": "Which statistical testing standard is used for validating the randomness of the generator?",
+    "expected_answer": "FIPS 140-1 statistical random number generator tests.",
+    "expected_page": 3,
+    "key_facts": ["FIPS 140-1"],
+    "question_type": "factoid"
+  },
+  {
+    "id": "rng_q08",
+    "paper_filename": "rng_paper.pdf",
+    "question": "What is the phenomenon called when ring oscillators in an RO-based RNG become dependent on each other?",
+    "expected_answer": "It is called the locking phenomenon.",
+    "expected_page": 2,
+    "key_facts": ["locking phenomenon", "ring oscillators"],
+    "question_type": "factoid"
+  },
+  {
+    "id": "rng_q09",
+    "paper_filename": "rng_paper.pdf",
+    "question": "What was the measured physical battery lifetime of the RNG chip running in a wearable device?",
+    "expected_answer": "NOT_SPECIFIED. The paper is an IC design simulation and post-layout verification paper and does not evaluate battery lifetime or wearable devices.",
+    "expected_page": null,
+    "key_facts": [],
+    "question_type": "unanswerable"
+  },
+  {
+    "id": "rng_q10",
+    "paper_filename": "rng_paper.pdf",
+    "question": "What quantum mechanical tunneling model was used to predict state entropy?",
+    "expected_answer": "NOT_SPECIFIED. The paper uses CMOS metastable latches and thermal noise, not quantum tunneling models.",
+    "expected_page": null,
+    "key_facts": [],
+    "question_type": "unanswerable"
+  }
+]
