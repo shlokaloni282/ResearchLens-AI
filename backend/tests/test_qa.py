@@ -4,6 +4,7 @@ Unit and Integration Tests for Stage 3 Question Answering & Grounded Generation.
 
 import asyncio
 import pytest
+from typing import cast
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
@@ -149,7 +150,7 @@ def test_missing_evidence_empty_index_abstains():
     response = asyncio.run(
         answer_research_question(
             question="What is the power dissipation?",
-            vector_index=empty_index,
+            vector_index=cast(InMemoryVectorIndex, empty_index),
             llm_provider=mock_llm,
         )
     )

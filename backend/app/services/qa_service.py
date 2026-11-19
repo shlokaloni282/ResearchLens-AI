@@ -333,6 +333,8 @@ def extract_and_verify_citations(
         for c in retrieved_chunks:
             chunk_file = c.get("source_filename", "")
             chunk_page = c.get("page_number")
+            if not isinstance(chunk_page, int):
+                continue
 
             file_matches = (matched_file is None) or (matched_file.lower() in chunk_file.lower())
             page_matches = (chunk_page == matched_page)
