@@ -14,6 +14,10 @@ class QuestionRequest(BaseModel):
         default=None,
         description="Optional paper_id to restrict the search to a specific paper."
     )
+    paper_ids: Optional[List[str]] = Field(
+        default=None,
+        description="Optional list of paper IDs to restrict the search to selected papers."
+    )
     source_filename: Optional[str] = Field(
         default=None,
         description="Optional filename to restrict the search to a specific paper file."

@@ -1,5 +1,31 @@
 import pytest
+import numpy as np
 from backend.app.services.retrieval import InMemoryVectorIndex
+
+
+class AccuracyComparisonEmbeddingModel:
+    """Small deterministic embedding model for cross-paper ranking tests."""
+
+    def encode(self, texts, normalize_embeddings=True):
+        vectors = []
+        for text in texts:
+            text = text.lower()
+            vectors.append([
+                1.0 if "accuracy" in text or "reported" in text or "study" in text else 0.0,
+                1.0 if "machine learning" in text else 0.0,
+                1.0 if "dataset" in text else 0.0,
+                1.0 if "biology" in text or "plants" in text else 0.0,
+            ])
+        embeddings = np.asarray(vectors, dtype=np.float32)
+        if normalize_embeddings:
+            norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
+            embeddings = np.divide(
+                embeddings,
+                norms,
+                out=np.zeros_like(embeddings),
+                where=norms != 0,
+            )
+        return embeddings
 
 
 @pytest.fixture
@@ -93,6 +119,82 @@ def test_paper_filtering_by_source_filename(sample_chunks):
     assert all(r["source_filename"] == "rng_paper.pdf" for r in results)
 
 
+def test_paper_filtering_by_selected_paper_ids(sample_chunks):
+    index = InMemoryVectorIndex()
+    index.add_chunks(sample_chunks)
+
+    results = index.search(
+        query="medical MRI disease detection",
+        top_k=5,
+        paper_ids=["paper_ai_health"],
+    )
+
+    assert len(results) == 1
+    assert all(result["paper_id"] == "paper_ai_health" for result in results)
+
+
+def test_paper_filtering_excludes_unselected_papers(sample_chunks):
+    index = InMemoryVectorIndex()
+    index.add_chunks(sample_chunks)
+
+    results = index.search(
+        query="research study",
+        top_k=5,
+        paper_ids=["paper_100mhz"],
+    )
+
+    assert results
+    assert all(result["paper_id"] == "paper_100mhz" for result in results)
+
+
+def test_empty_paper_ids_returns_no_results(sample_chunks):
+    index = InMemoryVectorIndex()
+    index.add_chunks(sample_chunks)
+
+    assert index.search("power dissipation", top_k=5, paper_ids=[]) == []
+
+
+def test_paper_ids_combines_with_source_filename_filter(sample_chunks):
+    index = InMemoryVectorIndex()
+    index.add_chunks(sample_chunks)
+
+    results = index.search(
+        query="Monobit test",
+        top_k=5,
+        paper_ids=["paper_100mhz", "paper_ai_health"],
+        source_filename="rng_paper.pdf",
+    )
+
+    assert results
+    assert all(
+        result["paper_id"] == "paper_100mhz"
+        and result["source_filename"] == "rng_paper.pdf"
+        for result in results
+    )
+
+
+def test_paper_ids_combines_with_single_paper_id_filter(sample_chunks):
+    index = InMemoryVectorIndex()
+    index.add_chunks(sample_chunks)
+
+    selected_and_single = index.search(
+        query="power dissipation",
+        top_k=5,
+        paper_id="paper_100mhz",
+        paper_ids=["paper_100mhz", "paper_ai_health"],
+    )
+    excluded_by_single = index.search(
+        query="power dissipation",
+        top_k=5,
+        paper_id="paper_100mhz",
+        paper_ids=["paper_ai_health"],
+    )
+
+    assert selected_and_single
+    assert all(result["paper_id"] == "paper_100mhz" for result in selected_and_single)
+    assert excluded_by_single == []
+
+
 def test_cross_paper_search(sample_chunks):
     index = InMemoryVectorIndex()
     index.add_chunks(sample_chunks)
@@ -103,6 +205,74 @@ def test_cross_paper_search(sample_chunks):
 
     hardware_results = index.search("Monobit test 20,000 bits", top_k=1)
     assert hardware_results[0]["paper_id"] == "paper_100mhz"
+
+
+def test_cross_paper_search_returns_relevant_chunks_from_multiple_papers():
+    chunks = [
+        {
+            "chunk_id": "a1",
+            "paper_id": "paper_a",
+            "source_filename": "study_a.pdf",
+            "page_number": 2,
+            "text": "Study A reported accuracy using machine learning.",
+        },
+        {
+            "chunk_id": "b1",
+            "paper_id": "paper_b",
+            "source_filename": "study_b.pdf",
+            "page_number": 5,
+            "text": "Study B reported accuracy using its dataset.",
+        },
+        {
+            "chunk_id": "c1",
+            "paper_id": "paper_c",
+            "source_filename": "study_c.pdf",
+            "page_number": 1,
+            "text": "Plant biology describes leaf structures.",
+        },
+    ]
+    index = InMemoryVectorIndex(model=AccuracyComparisonEmbeddingModel())
+    index.add_chunks(chunks)
+
+    results = index.search("Compare reported accuracy between the studies", top_k=2)
+
+    assert {result["paper_id"] for result in results} == {"paper_a", "paper_b"}
+    assert results[0]["score"] == results[1]["score"]
+    assert results == sorted(results, key=lambda result: result["score"], reverse=True)
+
+
+def test_cross_paper_search_preserves_similarity_ranking_without_forced_paper_diversity():
+    chunks = [
+        {
+            "chunk_id": "a1",
+            "paper_id": "paper_a",
+            "source_filename": "study_a.pdf",
+            "page_number": 2,
+            "text": "Study A reported accuracy using machine learning.",
+        },
+        {
+            "chunk_id": "a2",
+            "paper_id": "paper_a",
+            "source_filename": "study_a.pdf",
+            "page_number": 3,
+            "text": "Study A accuracy was reported for a machine learning model.",
+        },
+        {
+            "chunk_id": "b1",
+            "paper_id": "paper_b",
+            "source_filename": "study_b.pdf",
+            "page_number": 5,
+            "text": "Study B reported accuracy using its dataset.",
+        },
+    ]
+    index = InMemoryVectorIndex(model=AccuracyComparisonEmbeddingModel())
+    index.add_chunks(chunks)
+
+    results = index.search("Study machine learning accuracy", top_k=2)
+
+    assert [result["paper_id"] for result in results] == ["paper_a", "paper_a"]
+    assert results[0]["score"] >= results[1]["score"]
+    assert all(result["paper_id"] == "paper_a" for result in results)
 
 
 def test_top_k_limit(sample_chunks):

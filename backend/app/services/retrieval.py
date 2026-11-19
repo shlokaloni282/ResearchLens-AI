@@ -79,6 +79,7 @@ class InMemoryVectorIndex:
         top_k: int = 5,
         paper_id: Optional[str] = None,
         source_filename: Optional[str] = None,
+        paper_ids: Optional[List[str]] = None,
     ) -> List[Dict[str, Any]]:
         """
         Finds the top-k most similar chunks to a query.
@@ -87,6 +88,8 @@ class InMemoryVectorIndex:
           query: User query or research question.
           top_k: Number of results to return.
           paper_id: Optional filter. If specified, only chunks from this paper_id are searched.
+          paper_ids: Optional set of paper IDs. If specified, only chunks from selected papers are searched.
+                     An empty list returns no results.
           source_filename: Optional filter. If specified, only chunks from this filename are searched.
                            If neither is specified, performs cross-paper search.
 
@@ -107,11 +110,16 @@ class InMemoryVectorIndex:
         """
         if not query.strip() or self._embeddings is None or len(self._chunks) == 0:
             return []
+        if paper_ids is not None and len(paper_ids) == 0:
+            return []
 
         # 1. Determine candidate indices based on filters
         candidate_indices: List[int] = []
+        selected_paper_ids = set(paper_ids) if paper_ids is not None else None
         for idx, chunk in enumerate(self._chunks):
             if paper_id is not None and chunk.get("paper_id") != paper_id:
+                continue
+            if selected_paper_ids is not None and chunk.get("paper_id") not in selected_paper_ids:
                 continue
             if source_filename is not None and chunk.get("source_filename") != source_filename:
                 continue

@@ -29,6 +29,7 @@ async def ask_question(request: QuestionRequest):
             question=request.question,
             top_k=request.top_k,
             paper_id=request.paper_id,
+            paper_ids=request.paper_ids,
             source_filename=request.source_filename,
         )
         return response

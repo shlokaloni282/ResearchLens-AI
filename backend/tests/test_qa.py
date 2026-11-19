@@ -31,12 +31,23 @@ class MockVectorIndex:
     def __init__(self, chunks=None):
         self._chunks = chunks or []
 
-    def search(self, query: str, top_k: int = 5, paper_id=None, source_filename=None):
+    def search(
+        self,
+        query: str,
+        top_k: int = 5,
+        paper_id=None,
+        paper_ids=None,
+        source_filename=None,
+    ):
         if not self._chunks:
+            return []
+        if paper_ids is not None and len(paper_ids) == 0:
             return []
         results = []
         for c in self._chunks:
             if paper_id is not None and c.get("paper_id") != paper_id:
+                continue
+            if paper_ids is not None and c.get("paper_id") not in paper_ids:
                 continue
             if source_filename is not None and c.get("source_filename") != source_filename:
                 continue
@@ -151,6 +162,42 @@ def test_missing_evidence_empty_index_abstains():
         answer_research_question(
             question="What is the power dissipation?",
             vector_index=cast(InMemoryVectorIndex, empty_index),
+            llm_provider=mock_llm,
+        )
+    )
+
+    assert response.has_sufficient_evidence is False
+    assert response.answer == ABSTENTION_MESSAGE
+    assert response.citations == []
+    assert response.retrieved_chunks_count == 0
+
+
+def test_answer_generation_passes_selected_paper_ids(populated_index):
+    mock_llm = MockLLMProvider(
+        response_generator="The power dissipation is 23.4 mW [Paper: rng_paper.pdf, Page: 3]."
+    )
+
+    response = asyncio.run(
+        answer_research_question(
+            question="What is the power dissipation?",
+            paper_ids=["paper_rng"],
+            vector_index=populated_index,
+            llm_provider=mock_llm,
+        )
+    )
+
+    assert response.has_sufficient_evidence is True
+    assert response.retrieved_chunks_count > 0
+
+
+def test_answer_generation_empty_paper_ids_abstains(populated_index):
+    mock_llm = MockLLMProvider(response_generator="I should not be called")
+
+    response = asyncio.run(
+        answer_research_question(
+            question="What is the power dissipation?",
+            paper_ids=[],
+            vector_index=populated_index,
             llm_provider=mock_llm,
         )
     )
@@ -438,6 +485,59 @@ def test_api_qa_ask_success(populated_index, monkeypatch):
     assert "23.4 mW" in data["answer"]
     assert len(data["citations"]) >= 1
     assert data["citations"][0]["page_number"] == 3
+
+
+def test_api_qa_accepts_paper_ids(populated_index, monkeypatch):
+    mock_llm = MockLLMProvider(
+        response_generator="The power dissipation is 23.4 mW [Paper: rng_paper.pdf, Page: 3]."
+    )
+    monkeypatch.setattr(
+        "backend.app.services.qa_service.get_default_vector_index",
+        lambda: populated_index
+    )
+    monkeypatch.setattr(
+        "backend.app.services.qa_service.get_default_llm_provider",
+        lambda: mock_llm
+    )
+
+    client = TestClient(app)
+    response = client.post(
+        "/qa/ask",
+        json={
+            "question": "Compare the reported power dissipation.",
+            "paper_ids": ["paper_rng", "another_paper"],
+            "top_k": 3,
+        },
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["has_sufficient_evidence"] is True
+    assert data["retrieved_chunks_count"] > 0
+
+
+def test_api_qa_empty_paper_ids_abstains(monkeypatch):
+    mock_llm = MockLLMProvider(response_generator="I should not be called")
+    monkeypatch.setattr(
+        "backend.app.services.qa_service.get_default_llm_provider",
+        lambda: mock_llm
+    )
+
+    client = TestClient(app)
+    response = client.post(
+        "/qa/ask",
+        json={
+            "question": "Compare the reported power dissipation.",
+            "paper_ids": [],
+            "top_k": 3,
+        },
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["has_sufficient_evidence"] is False
+    assert data["answer"] == ABSTENTION_MESSAGE
+    assert data["retrieved_chunks_count"] == 0
 
 
 def test_api_qa_ask_validation_error():

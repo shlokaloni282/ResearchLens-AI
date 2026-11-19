@@ -381,6 +381,7 @@ async def answer_research_question(
     source_filename: Optional[str] = None,
     vector_index: Optional[InMemoryVectorIndex] = None,
     llm_provider: Optional[LLMProvider] = None,
+    paper_ids: Optional[List[str]] = None,
 ) -> AnswerResponse:
     """
     Main asynchronous pipeline for answering research questions with strict grounding.
@@ -392,6 +393,16 @@ async def answer_research_question(
     5. Verifies citations against retrieved chunks to eliminate hallucinations.
     """
     index = vector_index if vector_index is not None else get_default_vector_index()
+
+    if paper_ids is not None and len(paper_ids) == 0:
+        return AnswerResponse(
+            question=question,
+            answer=ABSTENTION_MESSAGE,
+            has_sufficient_evidence=False,
+            citations=[],
+            retrieved_chunks_count=0,
+        )
+
     provider = llm_provider if llm_provider is not None else get_default_llm_provider()
 
     # 1. Retrieve chunks
@@ -400,6 +411,7 @@ async def answer_research_question(
         top_k=top_k,
         paper_id=paper_id,
         source_filename=source_filename,
+        paper_ids=paper_ids,
     )
 
     # 2. Check for empty context
